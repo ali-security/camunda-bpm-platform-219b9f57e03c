@@ -32,6 +32,12 @@
       <artifactId>camunda-connect-soap-http-client</artifactId>
     </dependency>
 
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+
   </dependencies>
 
   <build>
@@ -56,6 +62,22 @@
                   <exclude>org.slf4j:*</exclude>
                 </excludes>
               </artifactSet>
+              <filters>
+                <!-- CVE-2026-54428: the patched AbstractH2StreamMultiplexer in
+                src/main/java replaces the shaded httpcore5-h2 class -->
+                <filter>
+                  <artifact>org.apache.httpcomponents.core5:httpcore5-h2</artifact>
+                  <excludes>
+                    <exclude>org/apache/hc/core5/http2/impl/nio/AbstractH2StreamMultiplexer.class</exclude>
+                    <exclude>org/apache/hc/core5/http2/impl/nio/AbstractH2StreamMultiplexer$1.class</exclude>
+                    <exclude>org/apache/hc/core5/http2/impl/nio/AbstractH2StreamMultiplexer$ConnectionHandshake.class</exclude>
+                    <exclude>org/apache/hc/core5/http2/impl/nio/AbstractH2StreamMultiplexer$Continuation.class</exclude>
+                    <exclude>org/apache/hc/core5/http2/impl/nio/AbstractH2StreamMultiplexer$H2Stream.class</exclude>
+                    <exclude>org/apache/hc/core5/http2/impl/nio/AbstractH2StreamMultiplexer$H2StreamChannelImpl.class</exclude>
+                    <exclude>org/apache/hc/core5/http2/impl/nio/AbstractH2StreamMultiplexer$SettingsHandshake.class</exclude>
+                  </excludes>
+                </filter>
+              </filters>
               <relocations>
                 <relocation>
                   <pattern>org.apache</pattern>
