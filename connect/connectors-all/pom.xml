@@ -98,6 +98,16 @@
                     <exclude>org/apache/hc/client5/http/impl/classic/InternalHttpClient.class</exclude>
                   </excludes>
                 </filter>
+                <!-- CVE-2026-71290: the patched AbstractClientTlsStrategy in
+                src/main/java (sets the HTTPS endpoint identification algorithm
+                before the SSL parameters are applied to the engine) replaces the
+                shaded httpclient5 class -->
+                <filter>
+                  <artifact>org.apache.httpcomponents.client5:httpclient5</artifact>
+                  <excludes>
+                    <exclude>org/apache/hc/client5/http/ssl/AbstractClientTlsStrategy.class</exclude>
+                  </excludes>
+                </filter>
               </filters>
               <relocations>
                 <relocation>
