@@ -87,6 +87,17 @@
                     <exclude>org/apache/hc/core5/http/config/Http1Config$Builder.class</exclude>
                   </excludes>
                 </filter>
+                <!-- CVE-2026-64607: the patched ContentCompressionExec and
+                InternalHttpClient in src/main/java (release the response and
+                discard the connection endpoint when the exec chain fails)
+                replace the shaded httpclient5 classes -->
+                <filter>
+                  <artifact>org.apache.httpcomponents.client5:httpclient5</artifact>
+                  <excludes>
+                    <exclude>org/apache/hc/client5/http/impl/classic/ContentCompressionExec.class</exclude>
+                    <exclude>org/apache/hc/client5/http/impl/classic/InternalHttpClient.class</exclude>
+                  </excludes>
+                </filter>
               </filters>
               <relocations>
                 <relocation>
