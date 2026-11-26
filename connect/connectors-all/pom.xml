@@ -77,6 +77,16 @@
                     <exclude>org/apache/hc/core5/http2/impl/nio/AbstractH2StreamMultiplexer$SettingsHandshake.class</exclude>
                   </excludes>
                 </filter>
+                <!-- CVE-2026-54399: the patched Http1Config in src/main/java
+                (bounded default max header count and max line length) replaces
+                the shaded httpcore5 class -->
+                <filter>
+                  <artifact>org.apache.httpcomponents.core5:httpcore5</artifact>
+                  <excludes>
+                    <exclude>org/apache/hc/core5/http/config/Http1Config.class</exclude>
+                    <exclude>org/apache/hc/core5/http/config/Http1Config$Builder.class</exclude>
+                  </excludes>
+                </filter>
               </filters>
               <relocations>
                 <relocation>
